@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUFIYAN AHMED — VICE FILES // CINEMATIC PORTFOLIO</title>
+<meta name="description" content="Sufiyan Ahmed — Frontend Engineer. A cinematic, canvas-scrubbed scroll experience built with HTML5 Canvas, GSAP ScrollTrigger, and Lenis.js.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Custom Vice City Neon Crosshair Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-badge mono">// VICE CITY GRAPHICS ENGINE</div>
+    <div class="preloader-label mono">LOADING DUAL CANVAS FRAME SEQUENCES (632 FRAMES)</div>
+    <div class="preloader-track"><div class="preloader-fill" id="preloaderFill"></div></div>
+    <div class="preloader-pct mono" id="preloaderPct">0%</div>
+  </div>
+</div>
+
+<!-- CANVAS BACKGROUND — Fullscreen Fixed Background across Entire Document -->
+<canvas id="scrollCanvas"></canvas>
+
+<!-- SCRUB CONTAINER — Pinned Track for Overlay Panels -->
+<section class="scrub-container" id="scrubContainer">
+  <div class="pin-wrap" id="pinWrap">
+
+    <!-- Top HUD chrome bar -->
+    <div class="scrub-hud">
+      <div class="scrub-hud-top">
+        <div class="badge mono"><span class="dot"></span> CANVAS ENGINE ACTIVE</div>
+        <div class="hud-status-chip mono">WANTED: <span class="stars">★★★★★</span></div>
+        <div class="scrub-progress mono" id="scrubProgressLabel">FRAME 001 / 632</div>
+      </div>
+      <div class="scrub-bar"><div class="scrub-bar-fill" id="scrubBarFill"></div></div>
+    </div>
+
+    <!-- HERO OVERLAY -->
+    <div class="overlay-panel overlay-hero" data-panel="hero">
+      <div class="hero-layout-grid">
+        <div class="hero-text-col hero-text-card glass-panel" data-animate="hero-text">
+          <div class="id-eyebrow mono">// FRONTEND ENGINEER &amp; UI ARCHITECT</div>
+          <h1 class="id-name display">SUFIYAN <span>AHMED</span></h1>
+          <p class="id-role">3 years building enterprise-grade admin consoles, role-based dashboards, and workflow UIs with React, TypeScript, and Tailwind — turning dense operational data into high-performance interfaces people actually enjoy using.</p>
+          <div class="hero-meta-row mono">
+            <span class="meta-tag">LOCATION: MYSORE, IN</span>
+            <span class="meta-tag">SPECIALTY: REACT / TS</span>
+            <span class="meta-tag cyan-glow">STATUS: READY TO DEPLOY</span>
+          </div>
+        </div>
+        <div class="hero-visual-col" data-animate="hero-visual">
+          <div class="hero-cutout-card glass-panel" data-tilt>
+            <div class="cutout-badge mono">// OPERATIVE ID: SA-03</div>
+            <div class="cutout-img-container">
+              <img src="assets/images/image1.png" alt="Sufiyan Ahmed Cutout" class="hero-cutout-img">
+            </div>
+            <div class="cutout-overlay-scanline"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAREER OVERLAY -->
+    <div class="overlay-panel overlay-career" data-panel="career">
+      <div class="panel-header" data-animate="career-head">
+        <span class="sec-num mono">// 01 — CAREER</span>
+        <h2 class="sec-title display">DEPLOY <span>LOG</span></h2>
+      </div>
+
+      <div class="career-content-grid">
+        <div class="career-jobs-col">
+          <div class="overlay-job glass-panel" data-animate="job-1" data-tilt>
+            <div class="overlay-job-head">
+              <span class="overlay-job-role">Frontend Engineer</span>
+              <span class="overlay-job-dates mono">Jan 2024 — Present</span>
+            </div>
+            <div class="overlay-job-org mono">Argument Driven Inquiry, USA (Remote)</div>
+            <ul class="overlay-list">
+              <li>Built scalable admin console and role-based dashboards (Admin, Warehouse, Field Ops) for warehouse operations platform.</li>
+              <li>Shipped inventory, order lifecycle, and workflow modules across 55 screens; brought codebase to full TypeScript strict-mode.</li>
+              <li>Engineered Redux-Saga state architecture, code-splitting, and Cypress test suites feeding CI pipelines.</li>
+            </ul>
+          </div>
+
+          <div class="overlay-job glass-panel" data-animate="job-2" data-tilt>
+            <div class="overlay-job-head">
+              <span class="overlay-job-role">Frontend Engineer</span>
+              <span class="overlay-job-dates mono">Aug 2023 — Dec 2023</span>
+            </div>
+            <div class="overlay-job-org mono">PearlThoughts, Bangalore</div>
+            <ul class="overlay-list">
+              <li>Developed a modular, reusable React component library for enterprise operations dashboard systems.</li>
+              <li>Optimized REST API integration layer, improving data fetching speed, state caching, and live form validation.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="career-photo-col" data-animate="career-photo">
+          <div class="field-photo-card glass-panel" data-tilt>
+            <div class="polaroid-stamp mono">VICE CITY FIELD INTEL // RECON 2024</div>
+            <div class="photo-img-wrap">
+              <img src="assets/images/image2.jpg" alt="Field Operative Recon Photo" class="field-photo-img">
+            </div>
+            <div class="photo-caption mono">CONFIDENTIAL // FRONTEND FIELD OPERATIVE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS OVERLAY -->
+    <div class="overlay-panel overlay-projects" data-panel="projects">
+      <div class="panel-header" data-animate="projects-head">
+        <span class="sec-num mono">// 02 — PROJECTS</span>
+        <h2 class="sec-title display">FEATURED <span>WORK</span></h2>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 Card -->
+        <div class="project-case-card glass-panel" data-animate="project-1" data-tilt>
+          <div class="case-header">
+            <span class="case-tag mono">// MISSION FILE 01</span>
+            <h3 class="case-title display">WAREHOUSE <span>CRM</span> SYSTEM</h3>
+          </div>
+          <div class="case-card-flex">
+            <div class="case-visual case-visual-landscape">
+              <img src="assets/images/image3.png" alt="Warehouse CRM Preview" class="case-img">
+            </div>
+            <div class="case-body">
+              <ul class="overlay-list">
+                <li><strong>Sole Architect:</strong> 55 screens across 2 modules in React, TS, Tailwind.</li>
+                <li><strong>API Layer:</strong> 179 service functions across 25+ domains (97% live API).</li>
+                <li><strong>Bug Diagnostics:</strong> Resolved backend pagination bug capping 500 rows.</li>
+                <li><strong>CRM Rebuild:</strong> Rebuilt CRM module against ~130 REST endpoints.</li>
+              </ul>
+              <div class="case-tech-row mono">
+                <span>REACT</span><span>TYPESCRIPT</span><span>REDUX-SAGA</span><span>TAILWIND</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 Card -->
+        <div class="project-case-card glass-panel" data-animate="project-2" data-tilt>
+          <div class="case-header">
+            <span class="case-tag mono">// MISSION FILE 02</span>
+            <h3 class="case-title display">EDUCATIONAL <span>E-COMMERCE</span> &amp; AI</h3>
+          </div>
+          <div class="case-card-flex">
+            <div class="case-visual case-visual-portrait">
+              <img src="assets/images/image4.png" alt="Educational Platform Preview" class="case-img">
+            </div>
+            <div class="case-body">
+              <ul class="overlay-list">
+                <li><strong>Learning Platform:</strong> Role-based platform for schools &amp; teachers.</li>
+                <li><strong>AI Integration:</strong> Integrated OpenAI API for guided dropdown queries.</li>
+                <li><strong>Assessments:</strong> Structured delivery pipeline for assessments &amp; scoring.</li>
+              </ul>
+              <div class="case-tech-row mono">
+                <span>REACT</span><span>OPENAI API</span><span>REST API</span><span>CYPRESS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTRO OVERLAY — Appears right as Sequence 2 starts at frame 225! -->
+    <div class="overlay-panel overlay-outro" data-panel="outro">
+      <div class="outro-content glass-panel" data-animate="outro-content">
+        <div class="sec-num mono">// SCROLL TO CONTINUE DOCUMENT FLOW</div>
+        <h2 class="sec-title display">LET'S <span>BUILD</span> TOGETHER</h2>
+        <p class="overlay-copy">Ready to engineer high-throughput web applications, sleek dashboards, or custom digital experiences.</p>
+        <a href="#contact" class="btn btn-primary mono" style="margin-top: 16px;">INITIATE CONTACT</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NORMAL DOCUMENT FLOW — Continuous High-Speed Laser Tunnel Background! -->
+<main>
+  <section id="skills" class="skills-band">
+    <div class="wrap">
+      <div class="sec-head" data-reveal="left">
+        <span class="sec-num mono">// 03</span>
+        <h2 class="sec-title display">TECH <span>STACK</span></h2>
+        <span class="sec-rule"></span>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-card glass-panel" data-reveal="scale" data-tilt>
+          <h3 class="mono">// FRONTEND</h3>
+          <div class="tag-row">
+            <span class="tag mono">React.js</span><span class="tag mono">TypeScript</span>
+            <span class="tag mono">JavaScript (ES6+)</span><span class="tag mono">Redux-Saga</span>
+            <span class="tag mono">Tailwind CSS</span><span class="tag mono">HTML5</span>
+            <span class="tag mono">CSS3</span>
+          </div>
+        </div>
+        <div class="stack-card glass-panel" data-reveal="scale" data-tilt>
+          <h3 class="mono">// APIS</h3>
+          <div class="tag-row">
+            <span class="tag mono">REST</span><span class="tag mono">GraphQL</span>
+            <span class="tag mono">OAuth 2.0</span>
+          </div>
+        </div>
+        <div class="stack-card glass-panel" data-reveal="scale" data-tilt>
+          <h3 class="mono">// TESTING &amp; MONITORING</h3>
+          <div class="tag-row">
+            <span class="tag mono">Cypress</span><span class="tag mono">Postman</span>
+            <span class="tag mono">Sentry</span><span class="tag mono">Elastic Cloud</span>
+          </div>
+        </div>
+        <div class="stack-card glass-panel" data-reveal="scale" data-tilt>
+          <h3 class="mono">// CLOUD &amp; DEVOPS</h3>
+          <div class="tag-row">
+            <span class="tag mono">AWS (EC2, ECS, S3, IAM)</span><span class="tag mono">Docker</span>
+            <span class="tag mono">Terraform</span><span class="tag mono">GitHub Actions</span>
+            <span class="tag mono">CircleCI</span>
+          </div>
+        </div>
+        <div class="stack-card glass-panel" data-reveal="scale" data-tilt>
+          <h3 class="mono">// TOOLS</h3>
+          <div class="tag-row">
+            <span class="tag mono">Git</span><span class="tag mono">Jira</span>
+            <span class="tag mono">Vite</span><span class="tag mono">Webpack</span>
+          </div>
+        </div>
+        <div class="stack-card glass-panel" data-reveal="scale" data-tilt>
+          <h3 class="mono">// AI-ASSISTED DEV</h3>
+          <div class="tag-row">
+            <span class="tag mono">Claude</span><span class="tag mono">ChatGPT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="wrap">
+      <div class="contact-panel glass-panel" data-reveal="left" data-tilt>
+        <h2 class="display">GET IN <span>TOUCH</span></h2>
+        <p>Mysore, India · Open to frontend / full-stack roles and freelance builds.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary mono" href="mailto:sufiyanahmed1624@gmail.com">Email Me</a>
+          <a class="btn btn-ghost mono" href="https://linkedin.com/in/sufiyan-ahmed-91503621b" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-ghost mono" href="tel:+918553805549">+91 85538 05549</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">© 2026 SUFIYAN AHMED</span>
+    <span class="mono">VICE FILES // CINEMATIC DUAL CANVAS ENGINE</span>
+  </div>
+</footer>
+
+<!-- GSAP core + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- Lenis smooth scroll -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lenis/1.1.13/lenis.min.js"></script>
+
+<script src="main.js"></script>
+</body>
+</html>
