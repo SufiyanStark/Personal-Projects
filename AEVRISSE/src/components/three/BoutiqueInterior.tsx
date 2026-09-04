@@ -1,6 +1,5 @@
 "use client";
 
-import { ClothingSection } from "@/components/three/ClothingSection";
 import { InteriorLighting } from "@/components/three/InteriorLighting";
 import { Text } from "@react-three/drei";
 
@@ -73,7 +72,22 @@ export function BoutiqueInterior() {
         <circleGeometry args={[1.05, 40]} />
         <meshBasicMaterial color="#725735" transparent opacity={0.24} />
       </mesh>
-      <ClothingSection />
+      <mesh position={[-1.62, 0.92, -6.75]} castShadow receiveShadow>
+        <boxGeometry args={[0.62, 1.7, 0.08]} />
+        <meshStandardMaterial color="#1a1512" roughness={0.54} metalness={0.12} />
+      </mesh>
+      <mesh position={[1.62, 0.92, -6.75]} castShadow receiveShadow>
+        <boxGeometry args={[0.62, 1.7, 0.08]} />
+        <meshStandardMaterial color="#25201b" roughness={0.54} metalness={0.12} />
+      </mesh>
+      <mesh position={[-1.62, 1.86, -6.7]}>
+        <boxGeometry args={[0.76, 0.04, 0.04]} />
+        <meshBasicMaterial color="#b58d55" />
+      </mesh>
+      <mesh position={[1.62, 1.86, -6.7]}>
+        <boxGeometry args={[0.76, 0.04, 0.04]} />
+        <meshBasicMaterial color="#b58d55" />
+      </mesh>
     </group>
   );
 }

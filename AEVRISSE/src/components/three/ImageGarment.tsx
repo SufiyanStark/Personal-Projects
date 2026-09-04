@@ -116,30 +116,3 @@ export function ImageGarment({
     </group>
   );
 }
-
-[
-  "hoodie-01",
-  "hoodie-02",
-  "hoodie-03",
-  "hoodie-04",
-  "tshirt-01",
-  "tshirt-02",
-  "tshirt-03",
-  "tshirt-04",
-  "shirt-01",
-  "shirt-02",
-  "shirt-03",
-  "shirt-04",
-  "jacket-01",
-  "jacket-02",
-  "jacket-03",
-  "jacket-04",
-  "trousers-01",
-  "trousers-02",
-  "trousers-03",
-  "trousers-04",
-  "coat-01",
-  "coat-02",
-  "coat-03",
-  "coat-04",
-].forEach((id) => useTexture.preload(`/models/clothing/clean/${id}.png`));

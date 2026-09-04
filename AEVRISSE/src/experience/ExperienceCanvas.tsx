@@ -23,7 +23,8 @@ export function ExperienceCanvas({ onReady }: ExperienceCanvasProps) {
 
   return (
     <Canvas
-      dpr={[1, 1.6]}
+      dpr={[1, 1.25]}
+      frameloop={isInspecting ? "never" : "always"}
       camera={{ position: [3, 1.65, 9], fov: 50, near: 0.05, far: 80 }}
       gl={{ antialias: true, alpha: false }}
       className="h-screen w-screen bg-[#050505]"
@@ -31,7 +32,7 @@ export function ExperienceCanvas({ onReady }: ExperienceCanvasProps) {
       <color attach="background" args={["#050505"]} />
       <fog attach="fog" args={["#050505", 9, 27]} />
       <Suspense fallback={null}>
-        <ScrollControls pages={9} damping={0.24} distance={1} enabled={!isInspecting}>
+        <ScrollControls pages={15} damping={0.24} distance={1} enabled={!isInspecting}>
           <AevrisseScene />
         </ScrollControls>
         <ReadySignal onReady={onReady} />

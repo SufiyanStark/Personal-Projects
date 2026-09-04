@@ -2,30 +2,31 @@
 
 import { useEffect, useRef } from "react";
 import { MathUtils } from "three";
+import type { AevrisseScrollProgressDetail } from "@/components/three/ScrollProgressBridge";
 
 export function EntranceOverlay() {
   const overlay = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let frame = 0;
-
-    const update = () => {
-      const nextProgress = Number.parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue("--aev-phase-one-progress") || "0",
-      );
-      const progress = Number.isFinite(nextProgress) ? nextProgress : 0;
+    const update = (progress: number) => {
       const fade = 1 - MathUtils.smoothstep(progress, 0.2, 0.4);
 
       if (overlay.current) {
         overlay.current.style.opacity = String(fade);
         overlay.current.style.transform = `translateY(${MathUtils.lerp(-18, 0, fade)}px)`;
       }
-
-      frame = window.requestAnimationFrame(update);
     };
 
-    frame = window.requestAnimationFrame(update);
-    return () => window.cancelAnimationFrame(frame);
+    const handleProgress = (event: Event) => {
+      const { phaseOneProgress } = (event as CustomEvent<AevrisseScrollProgressDetail>).detail;
+      update(phaseOneProgress);
+    };
+
+    update(0);
+    window.addEventListener("aevrisse-scroll-progress", handleProgress);
+    return () => {
+      window.removeEventListener("aevrisse-scroll-progress", handleProgress);
+    };
   }, []);
 
   return (

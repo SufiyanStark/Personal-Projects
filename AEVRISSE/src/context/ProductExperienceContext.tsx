@@ -21,11 +21,15 @@ type ProductExperienceContextValue = {
   selectedColor: string;
   cartItems: CartItem[];
   cartCount: number;
+  cartSubtotal: number;
+  isCartOpen: boolean;
   notice: string | null;
   validationMessage: string | null;
   dragRotation: { x: number; y: number };
   openInspection: (productId: string) => void;
   closeInspection: () => void;
+  openCart: () => void;
+  closeCart: () => void;
   selectSize: (size: string) => void;
   selectColor: (color: string) => void;
   setDragRotation: (rotation: { x: number; y: number }) => void;
@@ -40,12 +44,30 @@ export function ProductExperienceProvider({ children }: { children: ReactNode })
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState(defaultProduct.colors[0].name);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [validationMessage, setValidationMessage] = useState<string | null>(null);
   const [dragRotation, setDragRotation] = useState({ x: 0, y: 0 });
 
   const selectedProduct = selectedProductId ? getProduct(selectedProductId) ?? null : null;
   const isInspecting = selectedProduct !== null;
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartSubtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      try {
+        const stored = window.localStorage.getItem("aevrisse-cart-items");
+        if (stored) setCartItems(JSON.parse(stored) as CartItem[]);
+      } catch {
+        window.localStorage.removeItem("aevrisse-cart-items");
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("aevrisse-cart-items", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const openInspection = useCallback((productId: string) => {
     const product = getProduct(productId);
@@ -63,6 +85,9 @@ export function ProductExperienceProvider({ children }: { children: ReactNode })
     setValidationMessage(null);
     setDragRotation({ x: 0, y: 0 });
   }, []);
+
+  const openCart = useCallback(() => setIsCartOpen(true), []);
+  const closeCart = useCallback(() => setIsCartOpen(false), []);
 
   const selectSize = useCallback((size: string) => {
     setSelectedSize(size);
@@ -139,12 +164,16 @@ export function ProductExperienceProvider({ children }: { children: ReactNode })
       selectedSize,
       selectedColor,
       cartItems,
-      cartCount: cartItems.reduce((total, item) => total + item.quantity, 0),
+      cartCount,
+      cartSubtotal,
+      isCartOpen,
       notice,
       validationMessage,
       dragRotation,
       openInspection,
       closeInspection,
+      openCart,
+      closeCart,
       selectSize,
       selectColor,
       setDragRotation,
@@ -154,10 +183,15 @@ export function ProductExperienceProvider({ children }: { children: ReactNode })
       addSelectedToBag,
       cartItems,
       closeInspection,
+      closeCart,
+      cartCount,
+      cartSubtotal,
       dragRotation,
       isInspecting,
+      isCartOpen,
       notice,
       openInspection,
+      openCart,
       selectedColor,
       selectedProduct,
       selectedProductId,

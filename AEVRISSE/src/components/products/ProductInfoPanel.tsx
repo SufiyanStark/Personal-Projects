@@ -16,7 +16,6 @@ function formatPrice(value: number) {
 export function ProductInfoPanel() {
   const {
     addSelectedToBag,
-    closeInspection,
     selectedColor,
     selectedProduct,
     selectedSize,
@@ -28,15 +27,7 @@ export function ProductInfoPanel() {
   if (!selectedProduct) return null;
 
   return (
-    <aside className="pointer-events-auto w-full max-w-md border-l border-[#f5efe2]/12 bg-[#050505]/30 px-6 py-7 backdrop-blur-sm sm:px-8">
-      <button
-        type="button"
-        aria-label="Close product inspection"
-        onClick={closeInspection}
-        className="mb-10 ml-auto block text-sm uppercase tracking-[0.28em] text-[#efe7d7]/60 transition hover:text-[#efe7d7] focus:outline-none focus:ring-1 focus:ring-[#d2b37a]"
-      >
-        Close x
-      </button>
+    <aside className="pointer-events-auto max-h-[calc(100vh-6rem)] w-full max-w-md overflow-y-auto border-l border-[#f5efe2]/12 bg-[#050505]/36 px-6 py-7 backdrop-blur-[2px] sm:px-8">
       <p className="text-[0.62rem] uppercase tracking-[0.34em] text-[#b8a57d]">
         {selectedProduct.collection} - {selectedProduct.category}
       </p>

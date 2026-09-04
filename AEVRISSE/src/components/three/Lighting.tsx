@@ -4,10 +4,11 @@ import { useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { AmbientLight, Color, DirectionalLight, MathUtils, PointLight, SpotLight } from "three";
-import { getPhaseOneProgress, getPhaseTwoProgress } from "@/lib/experienceProgress";
+import { CAMERA_SETTLE_END, getPhaseOneProgress, getPhaseTwoProgress } from "@/lib/experienceProgress";
 
 const cool = new Color("#7f93a0");
 const warm = new Color("#e7bc80");
+const finalAmbientColor = cool.clone().lerp(warm, 0.68);
 
 export function Lighting() {
   const scroll = useScroll();
@@ -16,10 +17,19 @@ export function Lighting() {
   const interiorGlow = useRef<PointLight>(null);
   const leftSpot = useRef<SpotLight>(null);
   const rightSpot = useRef<SpotLight>(null);
+  const isSettled = useRef(false);
 
   useFrame(() => {
-    const phaseOneProgress = getPhaseOneProgress(scroll.offset);
-    const phaseTwoProgress = getPhaseTwoProgress(scroll.offset);
+    const progress = scroll.offset;
+
+    if (progress < CAMERA_SETTLE_END) {
+      isSettled.current = false;
+    } else if (isSettled.current) {
+      return;
+    }
+
+    const phaseOneProgress = getPhaseOneProgress(progress);
+    const phaseTwoProgress = getPhaseTwoProgress(progress);
     const interiorProgress = MathUtils.smoothstep(phaseOneProgress, 0.68, 0.92);
     const boutiqueProgress = MathUtils.smoothstep(phaseTwoProgress, 0.08, 0.75);
 
@@ -38,6 +48,18 @@ export function Lighting() {
 
     if (leftSpot.current) leftSpot.current.intensity = MathUtils.lerp(2.2, 1.25, interiorProgress);
     if (rightSpot.current) rightSpot.current.intensity = MathUtils.lerp(2, 1.2, interiorProgress);
+
+    if (progress >= CAMERA_SETTLE_END) {
+      if (ambient.current) {
+        ambient.current.intensity = 0.92;
+        ambient.current.color.copy(finalAmbientColor);
+      }
+      if (exteriorKey.current) exteriorKey.current.intensity = 0.62;
+      if (interiorGlow.current) interiorGlow.current.intensity = 4.9;
+      if (leftSpot.current) leftSpot.current.intensity = 1.25;
+      if (rightSpot.current) rightSpot.current.intensity = 1.2;
+      isSettled.current = true;
+    }
   });
 
   return (
